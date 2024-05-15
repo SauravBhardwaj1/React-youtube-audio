@@ -1,0 +1,83 @@
+/* App.css */
+
+*{
+  background-color: #000000;
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000000;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Sidebar styles */
+.sidebar {
+  padding: 20px;
+}
+
+/* Video card styles */
+.video-card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.video-card h2 {
+  margin-top: 0;
+}
+
+.video-card p {
+  margin-bottom: 10px;
+}
+
+.video-card img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+/* Custom modal styles */
+.custom-modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.modal-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Audio player styles */
+.audio-player {
+  margin-top: 20px;
+}
+
+/* Loading indicator styles */
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+}
