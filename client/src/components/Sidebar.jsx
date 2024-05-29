@@ -36,7 +36,7 @@ function Sidebar() {
         as="aside"
         bg="black"
         color="white"
-        borderRight="1px solid #E5E7EB" 
+        borderRight="1px solid rgba(7, 1, 1, 0.1)" 
         boxShadow="0px 0px 5px rgba(0, 0, 0, 0.1)" 
         py={6}
         position="fixed"
@@ -45,7 +45,8 @@ function Sidebar() {
         display={isSidebarOpen || isLargerThan768 ? 'block' : 'none'}
         width={{ base: '100%', md: '250px' }} // Adjust width based on screen size
         zIndex={10}
-        left={0}
+        left={2}
+        
       >
         {/* Logo */}
         <Flex align="center" mb={8} mt={10}>

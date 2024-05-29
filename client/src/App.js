@@ -18,13 +18,6 @@ function App() {
     const [currentlyPlayingCard, setCurrentlyPlayingCard] = useState(null);
     const [query, setQuery] = useState('');
     const [selectedVideo, setSelectedVideo] = useState(null);
-    const [modalOpen, setModalOpen] = useState(false);
-    const [modalDetails, setModalDetails] = useState({
-      title: "",
-      channel: "",
-      thumbnail: "",
-      audioUrl: ""
-    });
 
     //Fetching default videos
     const fetchDefaultVideos = async () => {
@@ -63,10 +56,13 @@ function App() {
       try {
         setLoading(true);
   
-        // Stop currently playing audio
-        if (currentlyPlayingAudio) {
+         // Stop currently playing audio
+         if (currentlyPlayingAudio) {
           currentlyPlayingAudio.pause();
-        }
+          currentlyPlayingAudio.currentTime = 0;
+          currentlyPlayingAudio.src = ''; // Clear the src attribute
+          setCurrentlyPlayingAudio(null);
+      }
   
         const encodedVideoId = encodeURIComponent(videoId);
         const res = await fetch(`${config.backendURL}/extractAudio`, {
@@ -76,8 +72,7 @@ function App() {
           },
           body: JSON.stringify({
             videoId,
-            snippet,
-            url: `https://www.youtube.com/watch?v=${encodedVideoId}`,
+            url: `https://www.youtube.com/watch?v=${encodedVideoId}`
           }),
         });
   
@@ -89,7 +84,9 @@ function App() {
         const audioBlob = await res.blob();
         const audioUrl = URL.createObjectURL(audioBlob);
   
-        setCurrentlyPlayingAudio(new Audio(audioUrl));
+        const audio = new Audio(audioUrl);
+            setCurrentlyPlayingAudio(audio);
+            audio.play();
   
         // Hide loading indicator
         setLoading(false);
@@ -100,6 +97,9 @@ function App() {
         }
         card.classList.add('playing');
         setCurrentlyPlayingCard(card);
+        audio.addEventListener('ended', () => {
+          card.classList.remove('playing');
+      });
       } catch (err) {
         console.error(err);
         // Handle errors
@@ -107,26 +107,33 @@ function App() {
       }
     };
 
-    const handleVideoClick = async (video) => {
+    const handleVideoClick = async (video,card) => {
+      const videoId = video.id.videoId || video.id; // Ensure to handle both cases
       setSelectedVideo(video);
-      await extractAudioAndPlay(video.id, video.snippet);
-    };
+      await extractAudioAndPlay(videoId,video.id,card);
+  };
+  const handleCloseModal = () => {
+    if (currentlyPlayingAudio) {
+        currentlyPlayingAudio.pause();
+        currentlyPlayingAudio.currentTime = 0;
+        currentlyPlayingAudio.src = ''; // Clear the src attribute
+        setCurrentlyPlayingAudio(null);
+    }
+    setSelectedVideo(null);
+};
+
+const handleSearchSubmit = (query) => {
+  searchVideos(query);
+  console.log('Search query: ' + query);
+};
+
+  useEffect(() => {
+      fetchDefaultVideos();
+  }, []);
+
   
-    const handleCloseModal = () => {
-      setSelectedVideo(null);
-    };
 
-    useEffect(() => {
-        // Fetch default videos on component mount
-         fetchDefaultVideos();
-    }, []);
-
-    const handleSearchSubmit = (query) => {
-        // Call searchVideos function with the submitted query
-        searchVideos(query);
-        console.log('Search query: ' + query);
-    };
-
+  console.log("videos",videos)
     return (
       <div>
       <Navbar  onSubmit={handleSearchSubmit} />
@@ -137,10 +144,14 @@ function App() {
           </GridItem>
           <GridItem>
           <Grid templateColumns="repeat(auto-fit, minmax(250px, 1fr))" gap={4}>
-              {videos.map((video) => (
-                <VideoCard key={video.id} video={video} onClick={() => handleVideoClick(video)} />
-              ))}
-            </Grid>
+                  {videos.map((video, index) => (
+                        <VideoCard
+                            key={video.id || video.id.videoId || index}
+                            video={video}
+                            onClick={(e) => handleVideoClick(video, e.currentTarget)}
+                        />
+                  ))}
+          </Grid>
           </GridItem>
         </Grid>
       </Container>
@@ -150,7 +161,7 @@ function App() {
             <h2>{selectedVideo.snippet.title}</h2>
             <p>{selectedVideo.snippet.channelTitle}</p>
             <img src={selectedVideo.snippet.thumbnails.medium.url} alt="" loading="lazy"/>
-            <AudioPlayer audioUrl={selectedVideo.audioUrl} />
+            <AudioPlayer audioUrl={selectedVideo.audioUrl}  audioInstance={currentlyPlayingAudio} />
           </>
         )}
       </CustomModal>

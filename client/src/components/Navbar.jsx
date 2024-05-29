@@ -21,8 +21,7 @@ function Navbar({ onSubmit }) {
       justify="space-between"
       bg="black"
       color="white"
-      borderBottom="1px solid #E5E7EB"
-      boxShadow="0px 1px 5px rgba(0, 0, 0, 0.1)"
+      borderBottom="1px solid rgba(0, 1, 0, 0.1)"
       position="fixed"
       top={0}
       left={0}

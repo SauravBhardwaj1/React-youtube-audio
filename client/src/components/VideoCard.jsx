@@ -18,7 +18,8 @@ function VideoCard({ video, onClick }) {
       transition="transform 0.3s ease-in-out"
       _hover={{ transform: "scale(1.05)" }}
       mt={20}
-      boxShadow="md"
+      border={"0.5px solid Grey"}
+      // boxShadow= "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px"
     >
       <Image src={thumbnails.medium.url} alt={title} />
       <Box p="6">
