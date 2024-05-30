@@ -128,7 +128,7 @@ const handleSearchSubmit = (query) => {
 };
 
   useEffect(() => {
-      fetchDefaultVideos();
+       fetchDefaultVideos();
   }, []);
 
   

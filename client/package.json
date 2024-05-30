@@ -2,7 +2,7 @@
   "name": "react-youtube",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://in.fusiongrid.dev/",
+  "homepage": "http://in.fusiongrid.dev/youtube",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.4",
