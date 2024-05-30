@@ -19,6 +19,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/build/index.html'));
   });
 
+  
 // Serve static audio files from the 'audio' directory
 app.use('/audio', express.static(path.join(__dirname, 'audio')));
 
