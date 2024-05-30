@@ -1,6 +1,7 @@
+# <<<<<<-------- Getting Started with Youtube-audio player ------>>>>
+
+
 <h2>If you want to extract audio from youtube videos and play it directly to cliet then clone this backend and listen to youtube videos</h2>
-=======
-# Getting Started with Youtube-audio player
 
 # Key feature is you can now play audio instead of video from youtube api 
 # Backend use for extract the audio data from youtube video with the help of youtube-dl, ytdl-core and ffmpeg-extract-audio and send the audio response to the client for playing audio live.
