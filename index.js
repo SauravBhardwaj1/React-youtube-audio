@@ -40,7 +40,6 @@ app.post('/extractAudio', async (req, res) => {
         if (!audioFormat) {
             throw new Error('No suitable audio format found');
         }
-
         // Set Content-Type header to indicate audio stream
         res.setHeader('Content-Type', 'audio/mpeg');
 
